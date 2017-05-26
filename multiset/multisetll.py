@@ -64,3 +64,11 @@ class Multiset:
             else:
                 previous.next1 = current.next1
 
+    def remove_all(self):
+        '''
+        Removes linked structure.
+        '''
+        self._head = None
+
+    def split_half(self):
+        
