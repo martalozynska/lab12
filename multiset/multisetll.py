@@ -28,7 +28,7 @@ class Multiset:
         :return: True if Multiset is in the Multiset and False otherwise.
         """
         current = self._head
-        while current != None:
+        while current is not None:
             if current.item == value:
                 return True
             else:
@@ -46,7 +46,7 @@ class Multiset:
         else:
             rest = self._head
             self._head = Node(value)
-            self._head.next1 = rest
+            self._head.next = rest
 
     def delete(self, value):
         """
@@ -57,12 +57,12 @@ class Multiset:
         previous = None
         while current is not None and current.item != value:
             previous = current
-            current = current.next1
+            current = current.next
         if current is not None:
             if previous is None:
-                self._head = self._head.next1
+                self._head = self._head.next
             else:
-                previous.next1 = current.next1
+                previous.next = current.next
 
     def remove_all(self):
         '''
@@ -70,5 +70,31 @@ class Multiset:
         '''
         self._head = None
 
+
     def split_half(self):
-        
+        '''
+        Splits the structure on two different ones.
+        :return: two structures which contain the data from the original one.
+        '''
+        current = self._head
+        struct_len = 0
+        indexx = 0
+        struct1 = Multiset()
+        struct2 = Multiset()
+        while current is not None:
+            struct_len += 1
+            current = current.next
+        if struct_len == 1:
+            return None
+        current = self._head
+        half_struct = struct_len // 2
+        while current != None:
+            if indexx < half_struct:
+                struct1.add(current.data)
+            elif indexx >= half_struct:
+                struct2.add(current.data)
+            indexx += 1
+            current = current.next
+
+        return struct1, struct2
+
